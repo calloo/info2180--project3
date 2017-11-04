@@ -30,12 +30,30 @@ function login(){
             }
             else if (!$conn) {
                 echo "cannot connect";
-                session_unset();
+
+                if (ini_get("session.use_cookies")) {
+                    $params = session_get_cookie_params();
+                    setcookie(session_name(), '', time() - 42000,
+                        $params["path"], $params["domain"],
+                        $params["secure"], $params["httponly"]
+                    );
+                }
+
+                $_SESSION = array();
                 session_destroy();
             }
             else{
                 echo "*invalid username or password";
-                session_unset();
+
+                if (ini_get("session.use_cookies")) {
+                    $params = session_get_cookie_params();
+                    setcookie(session_name(), '', time() - 42000,
+                        $params["path"], $params["domain"],
+                        $params["secure"], $params["httponly"]
+                    );
+                }
+
+                $_SESSION = array();
                 session_destroy();
             }
 

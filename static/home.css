@@ -149,7 +149,7 @@ body{
     height: 100%;
 }
 
-#message textarea, input[type="text"]{
+#message textarea, #message input[type="text"]{
     width: 80%;
     height: 80%;
     font-size: 1em;

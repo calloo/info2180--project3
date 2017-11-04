@@ -1,11 +1,9 @@
 
 $(document).ready(function () {
     function logout(){
-        setTimeout(function () {
-            $(".homepage").hide();
-            $("body").classList.add("setbackground");
-            $(".loginBox").show();
-        }, 2000);
+        $("body").classList.add("setbackground");
+        $(".loginBox").show();
+        $(".homepage").hide();
     }
 
     function load_data() {
@@ -86,11 +84,10 @@ $(document).ready(function () {
                     $("#page-view").hide();
                     $(".homepage").show();
 
-                    $.post("home.php", "{logout: true}", function () {
+                    $.post("home.php", {'logout': true}, function () {
                         logout();
+                        $("#page-view").empty();
                     });
-
-                    $("#page-view").empty();
                 });
 
             });
@@ -107,6 +104,7 @@ $(document).ready(function () {
                 $(".loginBox").hide();
                 $(".homepage").show();
                 $("body").removeClass("setbackground");
+
                 load_data();
             }else {
                 $("#error-notify").text(data);

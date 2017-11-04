@@ -6,5 +6,14 @@
  * Time: 9:44 PM
  */
 
-    echo file_get_contents("templates/base.html");
+    class MailBox{
+
+        public function __construct(){
+        }
+
+        public function getMailBox(String $username):String{
+            return str_replace("{{username}}", $username, file_get_contents("templates/base.html"));
+        }
+    }
+
 ?>

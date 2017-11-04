@@ -6,8 +6,9 @@ body{
 .homepage{
     position: absolute;
     top: 20%;
-    left: 40%;
+    left: 35%;
     background: transparent;
+    display: none;
 }
 
 .homepage h2{
@@ -15,6 +16,7 @@ body{
     left: 30%;
     color: gray;
 }
+
 
 #navbar{
     background: #337DFF;
@@ -41,6 +43,9 @@ body{
     padding-right: 10px;
 }
 
+#home{
+    height: inherit;
+}
 #side-icon{
     cursor: pointer;
     height: inherit;
@@ -49,8 +54,17 @@ body{
 #navbar h3{
     display: inline-block;
     position: absolute;
-    margin-left: 20px;
+    margin-left: 1.5em;
     top: -5px;
+    color: white;
+}
+#navbar h4{
+    display: inline-block;
+    float: right;
+    position: absolute;
+    top: -5px;
+    right: 10em;
+    margin-right: 20px;
     color: white;
 }
 
@@ -66,7 +80,7 @@ body{
 #mail-banner img{
     height: inherit;
     cursor: pointer;
-    margin-left: 50px;
+    margin-left: 4em;
 }
 
 #mail-banner span, #send-mail span{
@@ -119,7 +133,7 @@ body{
 }
 
 .sender{
-    margin-left: 20px;
+    margin-left: 1.3em;
 }
 
 

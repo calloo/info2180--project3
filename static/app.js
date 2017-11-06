@@ -19,11 +19,11 @@ $(document).ready(function () {
                 });
 
                 $("#compose").mouseenter(function () {
-                    this.src = '../images/compose2.png';
+                    this.src = 'images/compose2.png';
                 });
 
                 $("#compose").mouseleave(function () {
-                    this.src = '../images/compose.png';
+                    this.src = 'images/compose.png';
                 });
 
                 $("#compose").click(function () {
@@ -36,11 +36,11 @@ $(document).ready(function () {
                 });
 
                 $("#close").mouseenter(function () {
-                    this.src = '../images/close2.png';
+                    this.src = 'images/close2.png';
                 });
 
                 $("#close").mouseleave(function () {
-                    this.src = '../images/close.png';
+                    this.src = 'images/close.png';
                 });
 
                 $("#close").click(function () {

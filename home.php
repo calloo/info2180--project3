@@ -7,7 +7,7 @@
  */
     session_start();
 
-    require_once "mail.php";
+    require_once "MailBox.php";
 
     if (isset($_SESSION['id']) && isset($_SESSION['name'])){
 
@@ -25,7 +25,7 @@
             session_destroy();
         }else{
             $mailbox = new MailBox();
-            echo $mailbox->getMailBox($_SESSION['name']);
+            echo $mailbox->getMailBox($_SESSION['name'], $_SESSION['id']);
             print_r($_POST);
         }
     }

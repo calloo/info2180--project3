@@ -15,8 +15,8 @@ function login(){
 
             // Create connection
             $conn = mysqli_connect("127.0.0.1", "root", "", "schema");
-            $user = $_POST['user'];
-            $pw = hash("sha256", $_POST['password']);
+            $user = htmlspecialchars($_POST['user']);
+            $pw = hash("sha256", htmlspecialchars($_POST['password']));
 
             $result = mysqli_query($conn, "SELECT id FROM Users WHERE username = '$user' AND password = '$pw'");
             $user_info = mysqli_fetch_row($result);

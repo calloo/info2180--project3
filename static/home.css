@@ -90,7 +90,13 @@ body{
     margin-left: 4px;
     color: black;
 }
-
+#notification{
+    float: right;
+    display: inline-block;
+    margin-top: 12px;
+    margin-right: 40%;
+    color: black;
+}
 #send-mail{
     display: none;
 }
@@ -121,15 +127,34 @@ body{
     color: gray;
     width: 100%;
     cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: 0.9em;
 }
 
+#mail-header{
+    color: gray;
+    font-weight: bold;
+}
+#mail-header-date{
+    float: right;
+    margin-right: 5%;
+}
+#mail-header-subject{
+    float: right;
+    margin-right: 40%;
+}
+#mail-header-sender{
+    margin-left: 1.5%;
+}
 .mail-info p{
     display: inline-block;
+    color: gray;
 }
 
 .mail-info .title, .date{
     float: right;
-    margin-left: 30%;
+    margin-left: 37%;
 }
 
 .sender{
@@ -167,9 +192,7 @@ body{
     outline: none;
     height: 30px;
     padding-left: 5%;
-}
-:disabled{
-    background: none;
+    color: gray;
 }
 
 #subject-input{
@@ -196,4 +219,9 @@ body{
 
 .date{
     margin-right: 20px;
+}
+
+.read-mail p{
+    font-weight: bolder;
+    color: black;
 }

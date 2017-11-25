@@ -1,12 +1,12 @@
 body{
     margin: 0;
     padding: 0;
-    background-size: cover;
     font-family: sans-serif;
 }
 
 .setbackground{
     background-image: url(../images/login_bg.jpg);
+    background-size: cover;
 }
 
 .hideLoginBox{
@@ -85,4 +85,18 @@ body{
 }
 .loginBox form{
     margin-top: 50px;
+}
+
+.homepage{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    background: transparent;
+    display: none;
+}
+
+.homepage h2{
+    position: absolute;
+    left: 30%;
+    color: gray;
 }

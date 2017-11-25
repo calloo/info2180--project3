@@ -15,87 +15,11 @@ $(document).ready(function () {
         setTimeout(function () {
 
             //loads the mailBox data
-            $("#page-view").load("home.php", function () {
-                $(".mail-info").mouseenter(function () {
-                    this.style.background = 'lightgray';
-
-                });
-                $(".mail-info").mouseleave(function () {
-                    this.style.background = 'none';
-
-                });
-
-                $("#compose").mouseenter(function () {
-                    this.src = 'images/compose2.png';
-                });
-
-                $("#compose").mouseleave(function () {
-                    this.src = 'images/compose.png';
-                });
-
-                $("#compose").click(function () {
-                    $("#mails").hide();
-                    $("#mail-banner").hide();
-                    $("#send-mail").show();
-                    $("#mail-composer").show();
-                    $("#mail-composer").style.display = 'block';
-
-                });
-
-                $("#close").mouseenter(function () {
-                    this.src = 'images/close2.png';
-                });
-
-                $("#close").mouseleave(function () {
-                    this.src = 'images/close.png';
-                });
-
-                $("#close").click(function () {
-                    $("#message")[0].reset();
-                    $("#mails").show();
-                    $("#mail-banner").show();
-                    $("#send-mail").hide();
-                    $("#mail-composer").hide();
-                    $("#mail-composer").style.display = 'none';
-
-                });
-
-                $("#submit-btn").mouseenter(function () {
-                    this.style.background = '#337DFF';
-                });
-
-                $("#submit-btn").mouseleave(function () {
-                    this.style.background = 'lightgrey';
-                });
-
-                $("#send").mouseenter(function () {
-                    this.style.background = '#337DFF';
-                });
-
-                $("#send").mouseleave(function () {
-                    this.style.background = 'none';
-                });
-
-                $("#send").click(function () {
-                    $("#submit-btn").trigger("click");
-                });
-
-                $("#home").click(function () {
-                    $("#page-view").empty();
-                    $(".homepage").show();
-
-                    load_data();
-                });
-
-                $("#logout").click(function () {
-                    $("#page-view").hide();
-                    $(".homepage").show();
-
-                    $.post("home.php", {'logout': true}, function () {
-                        logout();
-                        $("#page-view").empty();
-                    });
-                });
+            $.get("../home.php", function (data) {
+                let newDoc = document.open("text/html", "replace");
+                newDoc.write(data);
+                newDoc.close();
+                window.history.pushState(null, "home", window.location.protocol + "//" + window.location.host + "/home.php");
 
             });
 
@@ -108,7 +32,7 @@ $(document).ready(function () {
         event.preventDefault();
 
         //validates the user information
-        $.post("validate.php", $("#login-form").serialize(), function (data) {
+        $.post("../validate.php", $("#login-form").serialize(), function (data) {
 
             //if user validation has been successful then redirect the user to their dashboard
             if (data === 'success'){

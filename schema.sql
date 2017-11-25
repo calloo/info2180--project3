@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 04, 2017 at 03:37 AM
+-- Generation Time: Nov 25, 2017 at 08:29 PM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.0.24
 
@@ -31,10 +31,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `Messages` (
   `id` int(11) NOT NULL,
   `recipient_ids` varchar(1000) NOT NULL,
-  `sender_id` int(11) NOT NULL,
+  `sender_id` varchar(90) NOT NULL,
   `subject` varchar(300) NOT NULL,
   `body` text NOT NULL,
-  `date_sent` date NOT NULL
+  `date_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -46,8 +46,8 @@ CREATE TABLE `Messages` (
 CREATE TABLE `Messages_read` (
   `id` int(11) NOT NULL,
   `message_id` int(11) NOT NULL,
-  `reader_id` int(11) NOT NULL,
-  `date_read` date NOT NULL
+  `reader_id` varchar(90) NOT NULL,
+  `date_read` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -105,36 +105,19 @@ ALTER TABLE `Users`
 -- AUTO_INCREMENT for table `Messages`
 --
 ALTER TABLE `Messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `Messages_read`
 --
 ALTER TABLE `Messages_read`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60001;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `Messages`
---
-ALTER TABLE `Messages`
-  ADD CONSTRAINT `Messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `Messages_read`
---
-ALTER TABLE `Messages_read`
-  ADD CONSTRAINT `Messages_read_ibfk_1` FOREIGN KEY (`message_id`) REFERENCES `Messages` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `Messages_read_ibfk_2` FOREIGN KEY (`reader_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60017;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

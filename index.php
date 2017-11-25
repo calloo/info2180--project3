@@ -13,7 +13,7 @@
     //checks if this is not a user who is already logged in
     if (!isset($_SESSION['id']) && !isset($_SESSION['name'])){
         //loads the login page
-        echo str_replace("{{dashboard}}", "", file_get_contents("templates/index.html"));
+        echo file_get_contents("templates/index.html");
 
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();
@@ -27,9 +27,6 @@
         session_destroy();
     }
     else{
-
-//        echo str_replace("{{dashboard}}", require_once "home.php", file_get_contents("templates/index2.html"));
-        //loads the user dashboard
-        require_once "home.php";
+        header('Location: home.php');
     }
 ?>

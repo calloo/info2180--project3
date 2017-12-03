@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CheapoMail</title>
+    <link rel="stylesheet" href="../static/home.css">
+    <script src="../static/jquery-3.2.1.min.js"></script>
+    <script src="../static/home_app.js"></script>
+</head>
+<body>
+
+<div class="homepage">
+    <img src="../images/loading.gif">
+    <h2>Loading.....</h2>
+</div>
+
+<div id="content-area">
+    <nav id="navbar">
+        <a id="home"><img src="../images/side_icon.png" id="side-icon"></a>
+        <h3>CheapoMail</h3>
+
+        <a href="#"><img src="../images/logout.png" id="logout"></a>
+        {{add_user}}
+        <h4>{{username}}</h4>
+    </nav>
+    <div id="mail-banner">
+        <img src="../images/compose.png" id="compose"> <span>Compose</span>
+        <span id="notification"></span>
+
+    </div>
+
+    <div id="send-mail">
+        <img src="../images/sendmail.png" id="send"><span>Send</span>
+        <img src="../images/close.png" id="close">
+    </div>
+
+    <section id="mails">
+        <h2>Mail Inbox</h2>
+        <div id="mail-header">
+            <span id="mail-header-sender">Sender</span>
+            <span id="mail-header-date">Date</span>
+            <span id="mail-header-subject">Subject</span>
+        </div>
+        <hr>
+        <!-- A users list of mails-->
+        {{Mail}}
+    </section>
+
+    <div id="mail-composer">
+        <form id="message">
+            <label>From</label>
+            <input type="text" value="{{account_user}}" name="sender" id="sender" readonly><br>
+            <label>To</label>
+            <input type="text" name="receiver" id="receiver" placeholder="enter recipient username"><br>
+            <input type="text" placeholder="Add a subject" name="subject" id="subject-input"><br><br>
+
+            <textarea placeholder="Add a message here" name="message"></textarea><br><br>
+
+            <input type="submit" value="Send" id="submit-btn">
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

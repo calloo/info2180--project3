@@ -20,10 +20,12 @@ class Account
     }
 
     function register(){
-        $result = $this->db->query("INSERT INTO Users (firstname, lastname, username, password)".
-            "VALUES ('$this->firstname', '$this->lastname', '$this->username', '$this->password')");
+        $stmt = mysqli_prepare($this->db, "INSERT INTO Users (firstname, lastname, username, password)".
+            "VALUES (?, ?, ?, ?)");
+        mysqli_stmt_bind_param($stmt, "ssss", $this->firstname, $this->lastname, $this->username, $this->password);
+        mysqli_stmt_execute($stmt);
 
-        return $result;
+        return $stmt->affected_rows > 0;
     }
 
     function close(){

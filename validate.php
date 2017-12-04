@@ -14,21 +14,25 @@ function login(){
         if (!empty($_POST) && !empty($_POST['user']) && !empty($_POST['password'])){
 
             // Create connection
-            $conn = mysqli_connect("127.0.0.1", "root", "", "schema");
+
+            $handle = mysqli_connect("127.0.0.1", "root", "", "schema");
             $user = htmlspecialchars($_POST['user']);
             $pw = hash("sha256", htmlspecialchars($_POST['password']));
 
-            $result = mysqli_query($conn, "SELECT id FROM Users WHERE username = '$user' AND password = '$pw'");
-            $user_info = mysqli_fetch_row($result);
+            $stmt = mysqli_prepare($handle, "SELECT id FROM Users WHERE username = ? AND password = ?");
+            mysqli_stmt_bind_param($stmt, "ss", $user, $pw);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_bind_result($stmt, $result);
+            $stmt->fetch();
 
-            if (count($user_info) == 1){
-                $_SESSION['id'] = $user_info[0];
+            if ($result !== null){
+                $_SESSION['id'] = $result;
                 $_SESSION['name'] = $user;
 
                 echo 'success';
 
             }
-            else if (!$conn) {
+            else if (!$handle) {
                 echo "cannot connect";
 
                 if (ini_get("session.use_cookies")) {
@@ -57,7 +61,7 @@ function login(){
                 session_destroy();
             }
 
-            $conn->close();
+            $handle->close();
 
 
 

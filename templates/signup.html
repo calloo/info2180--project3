@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <link rel="stylesheet" href="../static/signup.css">
+    <script src="../static/jquery-3.2.1.min.js"></script>
+    <script src="../static/signup.js"></script>
+</head>
+
+<body class="setbackground">
+    <div class="signup">
+    <form name="form" id="sign" method="post" action="../add.php">
+        <img src="../images/login_icon.png" class="user">
+        <h2> Create Account</h2>
+        <label>First Name</label><br />
+        <input type="text" name="firstname" placeholder=" First Name" required><br />
+        
+        <label>Last Name</label><br />
+        <input type="text" name="lastname" placeholder=" Last Name" required><br />
+                
+        <label>Username</label><br />
+        <input type="text" name="username" placeholder="Username" required><br>
+
+        <label>Password</label><br />
+        <input type="password" name="password" placeholder="•••••••••••" required><br>
+
+        <input class="button" type="submit" value="Create Account" id="sign-up"><br />
+        
+       <output id="error-notify"></output>
+        
+    </form>
+    </div>
+
+
+
+
+
+    
+    
+</body>
+
+    
+</html>

@@ -33,8 +33,11 @@
 
         private function getMails($username){
             $count = 0;
-            $results = $this->db->query("SELECT sender_id, subject, date_sent, id FROM Messages WHERE  ".
-                "recipient_ids LIKE '%$username%'");
+            $usr = "%". $username ."%";
+            $stmt = mysqli_prepare($this->db, "SELECT sender_id, subject, date_sent, id FROM Messages WHERE recipient_ids LIKE ?");
+            mysqli_stmt_bind_param($stmt, "s", $usr);
+            mysqli_stmt_execute($stmt);
+            $results = mysqli_stmt_get_result($stmt);
 
             $mail_data = "";
 
@@ -47,8 +50,11 @@
                 if ($count > 30){
                     break;
                 }
-                $read = $this->db->query("SELECT id FROM Messages_read WHERE reader_id LIKE '%$username%' ".
-                    " AND message_id = $result[3]");
+                $stmt2 = mysqli_prepare($this->db, "SELECT id FROM Messages_read WHERE reader_id LIKE ? ".
+                    " AND message_id = ?");
+                mysqli_stmt_bind_param($stmt2, "si", $usr, $result[3]);
+                mysqli_stmt_execute($stmt2);
+                $read = mysqli_stmt_get_result($stmt2);
 
                 if ($read->num_rows != 0){
                     $mail_data .= "<div class=\"mail-info\">
@@ -73,16 +79,26 @@
         }
 
         public function getMessage($message_id, $username){
-            $results = $this->db->query("SELECT sender_id, subject, body FROM Messages WHERE id = $message_id");
+            $stmt = mysqli_prepare($this->db, "SELECT sender_id, subject, body FROM Messages WHERE id = ?");
+            mysqli_stmt_bind_param($stmt, "i", $message_id);
+            mysqli_stmt_execute($stmt);
+            $usr = "%". $username ."%";
+            $results = mysqli_stmt_get_result($stmt);
 
             if ($results->num_rows > 0){
                 $result = $results->fetch_row();
-                $read = $this->db->query("SELECT id FROM Messages_read WHERE reader_id LIKE '%$username%' ".
-                    " AND message_id = $message_id");
+
+                $stmt2 = mysqli_prepare($this->db, "SELECT id FROM Messages_read WHERE reader_id LIKE ? ".
+                    " AND message_id = ?");
+                mysqli_stmt_bind_param($stmt2, "si", $usr, $message_id);
+                mysqli_stmt_execute($stmt2);
+                $read = mysqli_stmt_get_result($stmt2);
 
                 if ($read->num_rows == 0) {
-                    $this->db->query("INSERT INTO Messages_read (message_id, reader_id) " .
-                        " VALUES ($message_id, '$username')");
+                    $stmt3 = mysqli_prepare($this->db, "INSERT INTO Messages_read (message_id, reader_id) " .
+                        " VALUES (?, ?)");
+                    mysqli_stmt_bind_param($stmt3, "is", $message_id, $usr);
+                    mysqli_stmt_execute($stmt3);
                 }
                 $message = array('subject'=> $result[1], 'message'=> $result[2], 'sender'=> $result[0]);
 
@@ -97,16 +113,22 @@
 
             foreach ($users as $user){
                 $user  = trim($user);
+                $stmt = mysqli_prepare($this->db, "SELECT id FROM Users WHERE username = ?");
+                mysqli_stmt_bind_param($stmt, "s", $user);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
 
-                if (count($this->db->query("SELECT id FROM Users WHERE username = '$user'")->fetch_all()) == 0){
+                if ($result->num_rows == 0){
                     return false;
                 }
             }
 
-            $stmt = $this->db->query("INSERT INTO Messages (recipient_ids, sender_id, subject, body)".
-            " VALUES ('$recipient', '$sender', '$subject', '$body')");
+            $stmt = mysqli_prepare($this->db, "INSERT INTO Messages (recipient_ids, sender_id, subject, body)".
+                " VALUES (?, ?, ?, ?)");
+            mysqli_stmt_bind_param($stmt, "ssss", $recipient, $sender, $subject, $body);
+            mysqli_stmt_execute($stmt);
 
-            return $stmt;
+            return $stmt->affected_rows > 0;
         }
     }
 

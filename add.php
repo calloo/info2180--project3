@@ -30,7 +30,18 @@ elseif (!empty($_POST)){
         $lastname = htmlspecialchars($_POST['lastname']);
         $username = htmlspecialchars($_POST['username']);
         $password = htmlspecialchars($_POST['password']);
-
+        if (empty($firstname) || empty($lastname)) {
+            echo "*name field required";
+            exit(0);
+        }
+        if (empty($username)) {
+            echo "*username field required";
+            exit(0);
+        }
+        if (!preg_match("/[a-z]/", $password) || !preg_match("/[A-Z]/", $password) || !preg_match("/\d/", $password) || strlen($password) < 8) {
+            echo "*invalid password";
+            exit(0);
+        }
         $account = new Account($firstname, $lastname, $username, $password);
         $result = $account->register();
         $account->close();

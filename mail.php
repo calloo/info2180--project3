@@ -34,7 +34,6 @@ elseif (!empty($_POST)){
     $message = htmlspecialchars($_POST['message']);
 
     $result = $mailbox->sendMail($receiver, $sender, $subject, $message);
-
     if ($result == true) {
         echo "success";
     }else{
